@@ -1,0 +1,13 @@
+.header {
+    margin-left: auto;    padding: 0px;
+    margin-right: auto;    height: 15wh;
+    width: 100vw;
+    min-width 100vw;
+    background-color: #b9bf63
+}
+.card {
+    display: inline-block;
+    width: 10vw;
+    height: 5vh;
+    border: 1px black solid;
+}
