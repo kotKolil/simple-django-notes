@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src = "/static/main.js">
-    </script>
     <link rel="stylesheet" type="text/css" href="/static/style.css" media="screen"/>
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1">
+    <title>{% block title %}Default title{% endblock title %}</title>
 </head>
 <body>
+<!--base elements of page - header and "create_note" button-->
     <div class="header">
         <H2>
             Simple Django Note app
         </H2>
     </div>
+    {% block content %}
+
+    {% endblock content %}
+    <div class = "button-div" onclick="create_note();">
+        create note
+    </div>
+
+
 </body>
 </html>

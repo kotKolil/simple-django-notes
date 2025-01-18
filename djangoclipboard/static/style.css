@@ -5,6 +5,14 @@ body, html {
     margin: 0px;
     font-family:bellota;
 }
+
+#tag-text {
+    padding: 3px;
+    color:#000000;
+    border-right: black solid 2px;
+    border-left: black solid 2px;
+}
+
 @font-face {
     font-family: 'bellota';
     src: url('bellota-regular.ttf');
@@ -32,6 +40,14 @@ body, html {
 
 }
 
+.card-container textarea {
+    padding: 100px;
+    width: 500px;
+    height: 400px;
+    resize: none;
+
+}
+
 .card {
     display: flex;
     margin: 1vw;
@@ -54,4 +70,27 @@ body, html {
     justify-center:left;
     text-align:left;
     color: #555555;
+}
+
+.button-div {
+    position:fixed;
+    left:20px;
+    bottom:15px;
+    border-radius: 20px;
+    background-color: #BBBBBB;
+    padding: 10px;
+}
+
+.center {
+    position:fixed;
+    left: 40%;
+    bottom: 50%;
+    border: 3px solid black;
+    padding: 10px;
+}
+
+.button-submit-div {
+    border-radius: 20px;
+    background-color: #BBBBBB;
+    padding: 10px;
 }
