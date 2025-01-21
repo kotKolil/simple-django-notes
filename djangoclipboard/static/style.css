@@ -37,11 +37,17 @@ body, html {
     display:flex;
     justify-content: center;
     align-items: center;
+    overflow:auto;
 
 }
 
+.card-container::-webkit-scrollbar {
+    display: none; /* Скрывает полосу прокрутки */
+}
+
 .card-container textarea {
-    padding: 100px;
+    margin: 3vh;
+    padding: 3vh;
     width: 500px;
     height: 400px;
     resize: none;
@@ -93,4 +99,13 @@ body, html {
     border-radius: 20px;
     background-color: #BBBBBB;
     padding: 10px;
+}
+.theme-div {
+    font-size: 12px;
+    background-color: #BBBBBB;
+    padding: 10px;
+    color:black;
+    border: black solid 1px;
+    margin: 3px;
+
 }
