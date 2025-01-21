@@ -22,5 +22,8 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.index)
+    path("", views.index),
+    path("newNote/", views.newNote),
+    path("log_in/", views.logIn)
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
