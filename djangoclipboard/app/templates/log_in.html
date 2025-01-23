@@ -3,8 +3,8 @@
 {% block content %}
 <div class="center">
      {% csrf_token %}
-    <form method="POST" ACTION="/">
-        {text}
+    <form method="POST" ACTION="/log_in/">
+        {{text}}
         username
         <input type="text" name="username" />
         <p>

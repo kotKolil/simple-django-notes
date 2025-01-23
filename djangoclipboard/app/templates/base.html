@@ -8,23 +8,18 @@
 <body>
 <!--base elements of page - header and "create_note" button-->
     <div class="header">
-        <H2>
+                <H2>
             Simple Django Note app
         </H2>
-        <div class="card-container">
-            <form>
-            <input type="text" />
-                <input type="submit" class="button-submit-div" value="find a theme" />
-            </form>
-        </div>
+
+    </div>
+
+    <div class = "button-div" onclick="window.location.replace('/newNote')">
+        create note
     </div>
     {% block content %}
 
     {% endblock content %}
-    <div class = "button-div" onclick="window.location.replace('/newNote')">
-        create note
-    </div>
-
 
 </body>
 </html>

@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Editor{% endblock title %}
 {% block content %}
-
+<div class = "card-container">
+    {% for note_data in note %}
+        <div class="card">
+            <p id = "header">
+                {{note_data.theme}}
+            </p>
+            <p id = "content">
+                {{note_data.text}}
+            </p>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}

@@ -20,8 +20,10 @@ body, html {
     font-style: normal;
 }
 .header {
+    position: sticky;
     height: 7vh;
-    width: calc( width - 97wv);
+    overflow-x: hidden
+    width: fit-content;
     min-width 100vw;
     background-color: #9e9485;
     padding: 5px;
@@ -34,11 +36,12 @@ body, html {
 }
 
 .card-container {
+    flex-basis: 100%;
+    flex-wrap:wrap
     display:flex;
     justify-content: center;
     align-items: center;
-    overflow:auto;
-
+    overflow:hidden;
 }
 
 .card-container::-webkit-scrollbar {
