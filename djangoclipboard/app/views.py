@@ -10,9 +10,19 @@ def index(request):
     return TemplateResponse(request, "index.html", context = {"note":note_data})
 
 def newNote(request):
-    if request.user.is_authenticated:
-        return TemplateResponse(request, "editor.html")
-    return redirect("/log_in")
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            return TemplateResponse(request, "editor.html")
+        return redirect("log_in")
+    elif request.method == "POST":
+        if request.user.is_authenticated:
+            theme = request.POST.get("theme")
+            text = request.POST.get("text")
+            newNote = Note(author = request.user.username, text = text, theme = theme)
+            newNote.save()
+            return redirect("/")
+        return redirect("/log_in")
+
 
 def logIn(request):
     if request.method == "GET":
