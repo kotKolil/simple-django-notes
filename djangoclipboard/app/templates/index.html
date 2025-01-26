@@ -3,7 +3,7 @@
 {% block content %}
 <div class = "card-container">
     {% for note_data in note %}
-        <div class="card">
+        <div class="card" onclick="window.location.replace('/note?id={{note_data.Id}}')">
             <p id = "header">
                 {{note_data.theme}}
             </p>

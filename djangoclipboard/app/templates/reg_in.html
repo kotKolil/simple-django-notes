@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Logging in{% endblock title %}
+{% block content %}
+<div class="center">
+     {% csrf_token %}
+    <form method="POST" ACTION="/reg/">
+        {{text}}
+        username
+        <input type="text" name="username" />
+        <p>
+        password
+        <input type="password" name="password" />
+        <p>
+        e-mail
+        <input type="text" name="email" />
+        <p>
+        <a href="/recovery">forgot password?</a>
+        <br>
+        <a href="/reg">registrate in service</a>
+        <br>
+
+        <input type="submit" value="reg in" class="button-submit-div" />
+    </form>
+</div>
+{% endblock content %}

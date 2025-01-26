@@ -1,6 +1,7 @@
 from django.template.response import TemplateResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
+from hashlib import sha256
 
 from .models import *
 
@@ -13,12 +14,12 @@ def newNote(request):
     if request.method == "GET":
         if request.user.is_authenticated:
             return TemplateResponse(request, "editor.html")
-        return redirect("log_in")
+        return redirect("/log_in")
     elif request.method == "POST":
         if request.user.is_authenticated:
             theme = request.POST.get("theme")
             text = request.POST.get("text")
-            newNote = Note(author = request.user.username, text = text, theme = theme)
+            newNote = Note(author = request.user, text = text, theme = theme)
             newNote.save()
             return redirect("/")
         return redirect("/log_in")
@@ -39,3 +40,28 @@ def logIn(request):
             login(request, user)
             return redirect("/")
         return render("log_in.html", {"text": "incorrect username or password"})
+
+
+def regIn(request):
+    if request.method == "GET":
+        return TemplateResponse(request, "reg_in.html")
+    elif request.method == "POST":
+
+        hasher = sha256()
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        email = request.POST.get("email")
+        newUser = User.objects.create_user(username = username, password = password, email = email)
+        newUser.save()
+        return redirect("/")
+
+def viewNote(request):
+    if request.method == "GET":
+        noteId = request.GET.get("id")
+        noteData = Note.objectollls.filter(Id == noteId)
+        return render("note.html", context = {
+            "theme": noteId.theme,
+            "text": noteId.text,
+            "author": noteId.author.username
+        })
