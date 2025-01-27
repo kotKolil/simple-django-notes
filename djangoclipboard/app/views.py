@@ -59,9 +59,9 @@ def regIn(request):
 def viewNote(request):
     if request.method == "GET":
         noteId = request.GET.get("id")
-        noteData = Note.objectollls.filter(Id == noteId)
-        return render("note.html", context = {
-            "theme": noteId.theme,
-            "text": noteId.text,
-            "author": noteId.author.username
+        noteData = Note.objects.get(Id = noteId)
+        return render(request, "note.html", context = {
+            "theme": noteData.theme,
+            "text": noteData.text,
+            "author": noteData.author.username
         })
