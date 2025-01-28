@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" type="text/css" href="/static/style.css" media="screen"/>
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1">
@@ -8,10 +8,11 @@
 <body>
 <!--base elements of page - header and "create_note" button-->
     <div class="header">
-                <H2>
-                    <p onclick="window.location.replace('/')">Simple Django Note app </p>
-        </H2>
-
+        <h2 onclick="window.location.replace('/')">Simple Django Note app</h2>
+        <div class="notes-sections">
+            <span onclick="window.location.replace('/?section=common')">Common Notes</span>
+            <span onclick="window.location.replace('/?section=personal')">Personal Notes</span>
+        </div>
     </div>
 
     <div class = "button-div" onclick="window.location.replace('/newNote')">

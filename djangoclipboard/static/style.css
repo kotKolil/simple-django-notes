@@ -6,6 +6,7 @@ body, html {
     font-family:bellota;
 }
 
+
 textarea {
     resize: none;
 }
@@ -24,15 +25,14 @@ textarea {
     font-style: normal;
 }
 .header {
-    position: sticky;
-    height: 7vh;
-    overflow-x: hidden
-    width: fit-content;
-    min-width 100vw;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    align-items: center; /* Центрирование по вертикали */
     background-color: #9e9485;
     padding: 5px;
     color: #DDD;
+    width: auto;
 }
+
 .div {
     min-width: 100%;
     min-height: 100%;
@@ -132,4 +132,8 @@ textarea {
 .note-text {
     margin: auto;
     width: 50vw;
+}
+
+.notes-sections {
+
 }

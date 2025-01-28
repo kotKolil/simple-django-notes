@@ -1,16 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Editor{% endblock title %}
 {% block content %}
-<div class = "card-container">
-    {% for note_data in note %}
-        <div class="card" onclick="window.location.replace('/note?id={{note_data.Id}}')">
-            <p id = "header">
-                {{note_data.theme}}
-            </p>
-            <p id = "content">
-                {{note_data.text}}
-            </p>
-        </div>
-    {% endfor %}
+<div class="card-container">
+    {% if option == "common" or option is none %}
+        {% for note_data in note %}
+            {% if note_data.personal == "common" %}
+                <div class="card" onclick="window.location.replace('/note?id={{ note_data.Id }}')">
+                    <p class="header">
+                        {{ note_data.theme }}
+                    </p>
+                    <p class="content">
+                        {{ note_data.text }}
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% elif option == "personal" %}
+        {% for note_data in note %}
+            {% if note_data.author == username and note_data.personal == "personal" %}
+                <div class="card" onclick="window.location.replace('/note?id={{ note_data.Id }}')">
+                    <p class="header">
+                        {{ note_data.theme }}
+                    </p>
+                    <p class="content">
+                        {{ note_data.text }}
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock content %}

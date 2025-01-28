@@ -7,8 +7,18 @@ from .models import *
 
 # Create your views here.
 def index(request):
+    section = request.GET.get("section")
+    print(request.user)
+    if section == "personal" and not request.user.is_authenticated:
+        return redirect("/log_in")
     note_data = Note.objects.all()
-    return TemplateResponse(request, "index.html", context = {"note":note_data})
+    return TemplateResponse(request, "index.html", context =
+    {
+        "note": note_data,
+        "option": section,
+        "username": request.user
+    }
+                            )
 
 def newNote(request):
     if request.method == "GET":
@@ -17,9 +27,10 @@ def newNote(request):
         return redirect("/log_in")
     elif request.method == "POST":
         if request.user.is_authenticated:
+            note_type = request.POST.get("note-type") if request.POST.get("note-type") != None else "common"
             theme = request.POST.get("theme")
             text = request.POST.get("text")
-            newNote = Note(author = request.user, text = text, theme = theme)
+            newNote = Note(author = request.user, text = text, theme = theme, personal = note_type)
             newNote.save()
             return redirect("/")
         return redirect("/log_in")
@@ -39,7 +50,7 @@ def logIn(request):
             print("logged in")
             login(request, user)
             return redirect("/")
-        return render("log_in.html", {"text": "incorrect username or password"})
+        return render(request, "log_in.html", {"text": "incorrect username or password"})
 
 
 def regIn(request):
