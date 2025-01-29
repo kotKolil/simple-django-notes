@@ -35,6 +35,11 @@ def newNote(request):
             return redirect("/")
         return redirect("/log_in")
 
+def findView(request):
+    if request.method == "POST":
+        tag_name = request.POST.get("tag_name")
+        note_data = Note.objects.filter(theme__icontains=tag_name)
+        return TemplateResponse(request, template="index.html", context={"note":note_data})
 
 def logIn(request):
     if request.method == "GET":

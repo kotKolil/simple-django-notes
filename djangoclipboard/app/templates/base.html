@@ -13,8 +13,11 @@
             <span onclick="window.location.replace('/?section=common')">Common Notes</span>
             <span onclick="window.location.replace('/?section=personal')">Personal Notes</span>
         </div>
+        <form METHOD="POST" ACTION="/find/">
+            <input type="text" placeholder="insert tag to find notes" name="tag_name" required>
+            <input type="submit">
+        </form>
     </div>
-
     <div class = "button-div" onclick="window.location.replace('/newNote')">
         create note
     </div>
