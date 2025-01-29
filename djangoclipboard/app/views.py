@@ -1,4 +1,4 @@
-from django.template.response import TemplateResponse
+from django.template.response import *
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from hashlib import sha256
@@ -79,5 +79,11 @@ def viewNote(request):
         return render(request, "note.html", context = {
             "theme": noteData.theme,
             "text": noteData.text,
-            "author": noteData.author.username
+            "author": noteData.author.username,
+            "noteId": noteData.Id,
         })
+
+def rawView(request):
+    noteId = request.GET.get("id")
+    noteData = Note.objects.get(Id = noteId)
+    return HttpResponse(noteData.text)

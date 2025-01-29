@@ -28,4 +28,5 @@ urlpatterns = [
     path("note/", views.viewNote),
     path("reg/", views.regIn),
     path("find/", views.findView),
+    path("raw/", views.rawView),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
