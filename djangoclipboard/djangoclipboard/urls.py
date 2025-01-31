@@ -17,8 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import *
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import *
 from app import views
+from app.API import views as APIViews
+
+apiViews = [
+    path("api/Note/common", APIViews.NotesAPIView.as_view())
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +34,5 @@ urlpatterns = [
     path("reg/", views.regIn),
     path("find/", views.findView),
     path("raw/", views.rawView),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # path('', include("apis.urls")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + apiViews
