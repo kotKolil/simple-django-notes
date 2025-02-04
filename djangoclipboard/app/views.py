@@ -47,8 +47,6 @@ def logIn(request):
     elif request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        print(username)
-        print(password)
         user = authenticate(request, username=username, password=password)
         print(user)
         if user:
@@ -76,14 +74,21 @@ def viewNote(request):
     if request.method == "GET":
         noteId = request.GET.get("id")
         noteData = Note.objects.get(Id = noteId)
-        return render(request, "note.html", context = {
-            "theme": noteData.theme,
-            "text": noteData.text,
-            "author": noteData.author.username,
-            "noteId": noteData.Id,
-        })
-
-def rawView(request):
-    noteId = request.GET.get("id")
-    noteData = Note.objects.get(Id = noteId)
-    return HttpResponse(noteData.text)
+        if noteData and noteData.personal != "personal":
+            return render(request, "note.html", context = {
+                "theme": noteData.theme,
+                "text": noteData.text,
+                "author": noteData.author.username,
+                "noteId": noteData.Id,
+            })
+        elif noteData and noteData.personal == "personal" and noteData.author == request.user:
+            return render(request, "note.html", context = {
+                "theme": noteData.theme,
+                "text": noteData.text,
+                "author": noteData.author.username,
+                "noteId": noteData.Id,
+            })
+        return render(request=request, template_name="note.html",  context= {
+            "theme":"HTTP 404. Not Found",
+            "author": request.user.username
+         })

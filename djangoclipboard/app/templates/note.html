@@ -2,7 +2,7 @@
 {% block title %}Note{% endblock title %}
 {% block content %}
     <div class = "note-header">-
-        <a href="/raw?id={{noteId}}">raw view</a>
+        <a href="/api/Note/?format=json&id={{noteId}}">raw view</a>
         <h1>{{theme}} by {{author}}</h1>
     </div>
     <div class="note-text">

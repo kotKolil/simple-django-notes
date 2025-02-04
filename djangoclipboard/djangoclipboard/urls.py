@@ -22,7 +22,7 @@ from app import views
 from app.API import views as APIViews
 
 apiViews = [
-    path("api/Note/common", APIViews.NotesAPIViewCommon.as_view())
+    path("api/Note/", APIViews.NotesAPIViewCommon.as_view())
 ]
 
 urlpatterns = [
@@ -33,5 +33,4 @@ urlpatterns = [
     path("note/", views.viewNote),
     path("reg/", views.regIn),
     path("find/", views.findView),
-    path("raw/", views.rawView),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + apiViews

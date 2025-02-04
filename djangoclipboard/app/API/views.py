@@ -9,66 +9,35 @@ import json
 
 class NotesAPIViewCommon(APIView):
 
-    permission_classes = [AllowAny]
-
-    def get(self, request, *args, **kwargs):
-        note_id = request.GET.get("id")
-        username =request.GET.get("username")
-
-        if note_id and not username:
-            # Start with all notes
-            notes_query = Note.objects.all()
-
-            # Filter by note ID if provided
-            if note_id:
-                notes_query = notes_query.filter(Id=note_id)
-
-            # Exclude personal notes
-            notes_query = notes_query.exclude(personal="personal")
-
-            # Serialize the filtered notes
-            serializer = NotesSerializer(notes_query, many=True)
-            if serializer:
-                return Response(serializer.data, status=status.HTTP_200_OK)
-        elif not note_id and username:
-            # Start with all notes
-            notes_query = Note.objects.all()
-
-            # Filter by note ID if provided
-            if note_id:
-                User = get_user_model()
-                notes_query = notes_query.filter(author = User.objects.get(username = username))
-                notes_query = notes_query.exclude(personal = "private")
-                return Response(notes_query.data, status = 200)
-
-
-            # Exclude personal notes
-            notes_query = notes_query.exclude(personal="personal")
-
-            # Serialize the filtered notes
-            serializer = NotesSerializer(notes_query, many=True)
-            if serializer:
-                return Response(serializer.data, status=status.HTTP_200_OK)
-
-class NotesAPIViewPrivate(APIView):
-
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         note_id = request.GET.get("id")
-        note = Note.objects.filter(Id = note_id).filter(author = request.user)
-        serializer = NotesSerializer(note, many=True)
-        if serializer:
-            return Response(serializer.data, status = 200)
-        else:
-            return "404"
-
-    def post(self, request, *args, **kwargs):
-        received_json_data = json.loads(request.body)
-        personal = received_json_data["personal"]
-        text = received_json_data["text"]
-        theme = received_json_data["theme"]
-        author = request.user
-        newNote = Note(author = request.user, text = text, theme = theme, personal = personal)
+        note = Note.objects.filter(Id = note_id).first()
+        if note and note.personal != "personal":
+            serialized_data = NotesSerializer(note)
+            if serialized_data:
+                return Response(serialized_data.data)
+        elif note and note.personal == "personal" and note.author == request.user.username:
+            serialized_data = NotesSerializer(note)
+            if serialized_data:
+                return Response(serialized_data.data)
+        return Response("404", status=404)
+    
+    def post(self, request):
+        requestJson = json.loads(request.body)
+        personal = requestJson["personal"]
+        text = request["text"]
+        theme = request["theme"]
+        
+        newNote = Note(personal = personal, author = request.user, text  = text, theme = theme)
         newNote.save()
-        return Response("created", status = 201)
+        return Response("200", status = 200)
+
+    def delete(self, request):
+        note_id = request.GET.get("id")
+        note = Note.objects.filter(Id = note_id)
+        if note.author == request.user and note:
+            note.delete()
+            return Response("200", status=200)
+        return Response("404", status = 404)
