@@ -20,9 +20,16 @@ from django.conf.urls.static import static
 from django.urls import *
 from app import views
 from app.API import views as APIViews
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 apiViews = [
-    path("api/Note/", APIViews.NotesAPIViewCommon.as_view())
+    path("api/Note/", APIViews.NotesAPIView.as_view()),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 urlpatterns = [
