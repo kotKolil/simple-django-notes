@@ -1,0 +1,2 @@
+<H1>Simple Django Clipboard app</h1>
+This app allows create a paste with a different types of access (personal or common). Also this project has API, via your can get or edit paste. On site is released system of search to find neccessary publication. Project based on Django and Django Rest Framework
