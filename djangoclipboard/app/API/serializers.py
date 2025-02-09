@@ -1,6 +1,8 @@
-from rest_framework import serializers
+import sys
 
+sys.path.append("...")
 from app.models import Note
+from rest_framework import serializers
 
 
 class NotesSerializer(serializers.ModelSerializer):
